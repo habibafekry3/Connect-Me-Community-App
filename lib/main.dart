@@ -1,8 +1,15 @@
+import 'package:connectme_app/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:connectme_app/injection.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   setupDependencies();
+
   runApp(const ConnectMeApp());
 }
 

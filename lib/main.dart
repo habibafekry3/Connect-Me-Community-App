@@ -2,6 +2,10 @@ import 'package:connectme_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:connectme_app/injection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'Presentation/blocs/auth_cubit.dart';
+import 'Presentation/screens/login_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,9 +25,9 @@ class ConnectMeApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Connect Me',
-      home: Scaffold(
-        appBar: AppBar(title: const Text('ConnectMe')),
-        body: const Center(child: Text('Welcome to ConnectMe')),
+      home: BlocProvider(
+        create: (_) => AuthCubit(getIt()),
+        child: const LoginScreen(),
       ),
     );
   }

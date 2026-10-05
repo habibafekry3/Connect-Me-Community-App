@@ -8,6 +8,17 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this._authService) : super(const AuthInitial());
 
+  // Check if the user is already authenticated
+  void checkAuthStatus() {
+    final user = _authService.currentUser;
+
+    if (user != null) {
+      emit(const Authenticated());
+    } else {
+      emit(const Unauthenticated());
+    }
+  }
+
   //Login method
   Future<void> login({required String email, required String password}) async {
     emit(const AuthLoading());
@@ -15,13 +26,13 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await _authService.signIn(email: email, password: password);
 
-      emit(const AuthSuccess());
+      emit(const Authenticated());
     } catch (e) {
       emit(AuthError(_getErrorMessage(e)));
     }
   }
 
-// SignUp method
+  // SignUp method
   Future<void> signUp({
     required String fullName,
     required String email,
@@ -43,12 +54,14 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-// Logout method
+  // Logout method
   Future<void> logout() async {
     await _authService.signOut();
+
+    emit(const Unauthenticated());
   }
 
-// Error handling method
+  // Error handling method
   String _getErrorMessage(Object error) {
     return error.toString();
   }

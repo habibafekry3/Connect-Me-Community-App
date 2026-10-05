@@ -10,6 +10,15 @@ class AuthLoading extends AuthState {
   const AuthLoading();
 }
 
+class Authenticated extends AuthState {
+  const Authenticated();
+}
+
+class Unauthenticated extends AuthState {
+  const Unauthenticated();
+}
+
+// login or sign up success
 class AuthSuccess extends AuthState {
   const AuthSuccess();
 }

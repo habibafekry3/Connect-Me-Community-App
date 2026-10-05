@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'Presentation/blocs/auth_cubit.dart';
-import 'Presentation/screens/login_screen.dart';
+import 'Presentation/screens/auth_gate.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +26,8 @@ class ConnectMeApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Connect Me',
       home: BlocProvider(
-        create: (_) => AuthCubit(getIt()),
-        child: const LoginScreen(),
+        create: (_) => AuthCubit(getIt())..checkAuthStatus(),
+        child: const AuthGate(),
       ),
     );
   }

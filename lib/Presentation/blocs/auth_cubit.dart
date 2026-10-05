@@ -8,17 +8,12 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this._authService) : super(const AuthInitial());
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  //Login method
+  Future<void> login({required String email, required String password}) async {
     emit(const AuthLoading());
 
     try {
-      await _authService.signIn(
-        email: email,
-        password: password,
-      );
+      await _authService.signIn(email: email, password: password);
 
       emit(const AuthSuccess());
     } catch (e) {
@@ -26,28 +21,34 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+// SignUp method
   Future<void> signUp({
+    required String fullName,
     required String email,
     required String password,
   }) async {
     emit(const AuthLoading());
 
     try {
-      await _authService.signUp(
+      final userCredential = await _authService.signUp(
         email: email,
         password: password,
       );
 
-      emit(const AuthSuccess());
+      await userCredential.user?.updateDisplayName(fullName);
+
+      emit(const AuthSignUpSuccess());
     } catch (e) {
       emit(AuthError(_getErrorMessage(e)));
     }
   }
 
+// Logout method
   Future<void> logout() async {
     await _authService.signOut();
   }
 
+// Error handling method
   String _getErrorMessage(Object error) {
     return error.toString();
   }

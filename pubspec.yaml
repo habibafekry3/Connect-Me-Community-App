@@ -1,13 +1,12 @@
 name: connectme_app
 description: "A new Flutter project."
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.11.1
-
 
 dependencies:
   flutter:
@@ -15,10 +14,17 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   flutter_bloc: ^9.1.1
-  get_it: ^9.3.0
   firebase_core: ^4.15.0
   firebase_auth: ^6.7.0
   cloud_firestore: ^6.10.0
+  get_it: ^9.3.0
+  device_info_plus: ^13.3.0
+  image_picker: ^1.2.4
+  firebase_storage: ^13.6.0
+  equatable: ^3.0.0
+  flutter_image_compress: ^2.5.1
+  local_auth: ^3.0.2
+  google_maps_flutter: ^2.14.0
 
 dev_dependencies:
   flutter_test:
@@ -26,9 +32,7 @@ dev_dependencies:
 
   flutter_lints: ^6.0.0
 
-
 flutter:
-
   uses-material-design: true
 
   # assets:

@@ -1,10 +1,11 @@
+import 'package:connectme_app/Presentation/blocs/auth_cubit.dart';
+import 'package:connectme_app/Presentation/blocs/auth_state.dart';
+import 'package:connectme_app/Presentation/blocs/post_cubit.dart';
+import 'package:connectme_app/Presentation/screens/home_screen.dart';
+import 'package:connectme_app/Presentation/screens/login_screen.dart';
+import 'package:connectme_app/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../blocs/auth_cubit.dart';
-import '../blocs/auth_state.dart';
-import 'home_screen.dart';
-import 'login_screen.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -15,14 +16,15 @@ class AuthGate extends StatelessWidget {
       builder: (context, state) {
         if (state is AuthInitial) {
           return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+            body: Center(child: CircularProgressIndicator()),
           );
         }
 
         if (state is Authenticated) {
-          return const HomeScreen();
+          return BlocProvider(
+            create: (_) => getIt<PostCubit>()..loadPosts(),
+            child: const HomeScreen(),
+          );
         }
 
         return const LoginScreen();

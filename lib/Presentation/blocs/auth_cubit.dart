@@ -54,13 +54,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  // Logout method
-  Future<void> logout() async {
-    await _authService.signOut();
-
-    emit(const Unauthenticated());
-  }
-
   // Error handling method
   String _getErrorMessage(Object error) {
     return error.toString();
